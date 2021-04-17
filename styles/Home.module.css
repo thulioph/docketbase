@@ -10,8 +10,9 @@
 
 .grid {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  flex-flow: column;
   flex-wrap: wrap;
   max-width: 1200px;
   margin-top: 3rem;
@@ -130,6 +131,14 @@
 }
 
 /* FileMetaData */
+
+.fileMetaData {
+  margin-bottom: 60px;
+}
+
+.fileMetaData:last-child {
+  margin-bottom: 0;
+}
 
 .fileMetaData a {
   display: block;
