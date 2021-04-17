@@ -1,15 +1,24 @@
 {
-  "name": "docketbase",
+  "name": "DocketBase",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "dev": "node_modules/.bin/next dev",
+    "build": "node_modules/.bin/next build",
+    "start": "node_modules/.bin/next start",
+    "static": "node_modules/.bin/next export",
+    "build:serve": "npm run build && npm run start",
+    "docker:build": "docker build . -t docketbase-app",
+    "docker:run": "docker run -p 3000:3000 docketbase-app"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "moment": "^2.29.1",
     "next": "10.1.3",
     "react": "17.0.2",
     "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "prettier": "2.2.1"
   }
 }
