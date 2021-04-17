@@ -16,7 +16,7 @@ const useFetch = () => {
         const fetchData = async () => {
             setLoading(true)
 
-            const response = await fetch(`${getApiUrl()}/api/hello`)
+            const response = await fetch(`${getApiUrl()}/api/files`)
             const result = await response.json()
 
             setData(result.data)
