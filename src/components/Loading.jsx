@@ -1,15 +1,24 @@
 import React from 'react'
 
-import styles from 'styles/Home.module.css'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Spinner from 'react-bootstrap/Spinner'
+
+import styles from 'styles/general.module.css'
 
 const Loading = () => {
     return (
         <React.Fragment>
-            <div className={styles.container}>
-                <main className={styles.main}>
-                    <h1 className={styles.title}>Loading</h1>
-                </main>
-            </div>
+            <Container fluid>
+                <Row className={`justify-content-md-center ${styles.spinnerContainer}`}>
+                    <Col xs={{ span: true, offset: 5 }}>
+                        <Spinner animation="border" role="status" size="xl">
+                            <span className="sr-only">Loading...</span>
+                        </Spinner>
+                    </Col>
+                </Row>
+            </Container>
         </React.Fragment>
     )
 }

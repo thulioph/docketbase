@@ -4,15 +4,18 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
   Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: #F1F1F1;
   scroll-behavior: smooth;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
 }
 
 * {
   box-sizing: border-box;
+}
+
+/* overwrites bootstrap class */
+.card-deck {
+  flex-flow: column;
+}
+
+.card-deck .card {
+  margin-bottom: 15px;
 }

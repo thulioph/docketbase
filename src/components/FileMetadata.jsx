@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 
-import styles from 'styles/Home.module.css'
+import Card from 'react-bootstrap/Card'
 
 const FileMetadata = ({ metadata }) => {
     const { readableDate, date, summary } = metadata
@@ -11,14 +11,23 @@ const FileMetadata = ({ metadata }) => {
     }
 
     return (
-        <div className={styles.fileMetaData}>
-            <Link href={linkHref}>
-                <a>
-                    <h2>{readableDate}</h2>
-                    <p className={styles.description}>{summary}</p>
-                </a>
-            </Link>
-        </div>
+        <Card>
+            <Card.Header>
+                Transcription
+            </Card.Header>
+
+            <Card.Body>
+                <Card.Title>{summary}</Card.Title>
+
+                <Card.Text className="blockquote-footer">
+                    {readableDate}
+                </Card.Text>
+
+                <Card.Text>
+                    <Link href={linkHref}>read</Link>
+                </Card.Text>
+            </Card.Body>
+        </Card>
     )
 }
 

@@ -1,12 +1,18 @@
 import React, { useContext } from 'react'
-import Link from 'next/link'
+
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Jumbotron from 'react-bootstrap/Jumbotron'
+import Navbar from 'react-bootstrap/Navbar'
+import CardDeck from 'react-bootstrap/CardDeck'
 
 import  AppDataContext from 'src/context/app'
 
 import Loading from 'src/components/Loading'
 import FileMetadata from 'src/components/FileMetadata'
 
-import styles from 'styles/Home.module.css'
+import styles from 'styles/general.module.css'
 
 export default function Home() {
   const { loading, data } = useContext(AppDataContext)
@@ -19,23 +25,29 @@ export default function Home() {
 
   return (
     <React.Fragment>
-      <div className={styles.container}>
-        <main className={styles.main}>
-          <header>
-            <h1 className={styles.title}>
-              <Link href="/">
-                <a>DocketBase</a>
-              </Link>
-            </h1>
-          </header>
+      <Navbar bg="dark" variant="light"></Navbar>
 
-          <section className={styles.grid}>
-            {data.map((item, idx) => (
-              <FileMetadata key={idx} {...item} />
-            ))}
-          </section>
-        </main>
-      </div>
+      <Jumbotron fluid>
+        <Container>
+          <h1 className={styles.centerAlign}>DocketBase</h1>
+        </Container>
+      </Jumbotron>
+
+      <Container>
+        <Row>
+          <Col md={2}></Col>
+
+          <Col md={8}>
+            <CardDeck>
+              {data.map((item, idx) => (
+                <FileMetadata key={idx} {...item} />
+              ))}
+            </CardDeck>
+          </Col>
+
+          <Col md={2}></Col>
+        </Row>
+      </Container>
     </React.Fragment>
   )
 }

@@ -1,0 +1,21 @@
+.centerAlign {
+    text-align: center;
+}
+
+.spinnerContainer {
+    align-items: center;
+    height: 100vh;
+}
+
+.transcriptionHeader {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 30px 0;
+    padding: 20px 0;
+    border-bottom: 1px dotted #CCCCCC;
+    position: sticky;
+    top: 0;
+    background-color: #FFFFFF;
+}

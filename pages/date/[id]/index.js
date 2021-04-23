@@ -1,12 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Jumbotron from 'react-bootstrap/Jumbotron'
+import Navbar from 'react-bootstrap/Navbar'
+import Breadcrumb from 'react-bootstrap/Breadcrumb'
+import Badge from 'react-bootstrap/Badge'
+
 import AppDataContext from 'src/context/app'
 import Loading from 'src/components/Loading'
-import Card from 'src/components/Card'
-import BackButton from 'src/components/BackButton'
 
-import styles from 'styles/Home.module.css'
+import styles from 'styles/general.module.css'
 
 const TranscriptionPage = () => {
     const { current, updateCurrent } = useContext(AppDataContext)
@@ -25,17 +31,61 @@ const TranscriptionPage = () => {
 
     if (isLoading || !current) return <Loading />
 
-    const { transcription } = current
+    const { transcription, metadata } = current
 
     return (
         <React.Fragment>
-            <div className={styles.container}>
-                <BackButton>Go back</BackButton>
+            <Navbar bg="dark" variant="dark" className="justify-content-between">
+                <Navbar.Brand href="/">DocketBase</Navbar.Brand>
+            </Navbar>
 
-                {transcription.map((data, idx) => (
-                    <Card key={idx} {...data} />
-                ))}
-            </div>
+            <Jumbotron fluid>
+                <Container>
+                    <Row>
+                        <Col>
+                            <h1>{metadata.summary}</h1>
+                            <p>{metadata.readableDate}</p>
+                        </Col>
+                    </Row>
+
+                    <Row>
+                        <Breadcrumb>
+                            <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+                            <Breadcrumb.Item active>{metadata.date}</Breadcrumb.Item>
+                        </Breadcrumb>
+                    </Row>
+                </Container>
+            </Jumbotron>
+
+            <Container>
+                <Row>
+                    <Col>
+                        {transcription.map(({ page_number, header, content }, idx) => (
+                            <React.Fragment key={idx}>
+                                <section id={page_number}>
+                                    <header className={styles.transcriptionHeader}>
+                                        <h2>{header}</h2>
+
+                                        <Badge variant="light">
+                                            <a href={`#${page_number}`} title={`Go to page ${page_number}`}>
+                                                #{page_number}
+                                            </a>
+                                        </Badge>
+                                    </header>
+
+                                    <div>
+                                        {content.map(({ line_number, data }) => (
+                                            <div key={line_number}>
+                                                <p>{data}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </section>
+                            </React.Fragment>
+                        ))}
+                    </Col>
+                </Row>
+            </Container>
         </React.Fragment>
     )
 }
