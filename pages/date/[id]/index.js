@@ -62,7 +62,7 @@ const TranscriptionPage = () => {
                     <Col>
                         {transcription.map(({ page_number, header, content }, idx) => (
                             <React.Fragment key={idx}>
-                                <section id={page_number}>
+                                <section className={styles.transcriptionContainer} id={page_number}>
                                     <header className={styles.transcriptionHeader}>
                                         <h2>{header}</h2>
 

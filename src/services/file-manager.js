@@ -3,7 +3,7 @@ import { readFileSync, readdirSync } from 'fs'
 import moment from 'moment'
 
 const formatDateToDisplay = (date) => {
-    return moment(new Date(date)).format('MMMM d, YYYY')
+    return moment(new Date(date)).format('ll')
 }
 
 const filterFiles = (fileName, extension) => {
