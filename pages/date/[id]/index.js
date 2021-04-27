@@ -64,21 +64,23 @@ const TranscriptionPage = () => {
                             <React.Fragment key={idx}>
                                 <section className={styles.transcriptionContainer} id={page_number}>
                                     <header className={styles.transcriptionHeader}>
-                                        <h2>{header}</h2>
+                                        <h4>{header}</h4>
 
                                         <Badge variant="light">
                                             <a href={`#${page_number}`} title={`Go to page ${page_number}`}>
-                                                #{page_number}
+                                                Pg. {page_number}
                                             </a>
                                         </Badge>
                                     </header>
 
                                     <div>
-                                        {content.map(({ line_number, data }) => (
-                                            <div key={line_number}>
-                                                <p>{data}</p>
-                                            </div>
-                                        ))}
+                                        {content.map(({ line_number, data }) => {
+                                            return (
+                                                <div key={line_number}>
+                                                    <p>{data}</p>
+                                                </div>
+                                            )
+                                        })}
                                     </div>
                                 </section>
                             </React.Fragment>
