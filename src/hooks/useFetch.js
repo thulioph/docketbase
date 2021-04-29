@@ -5,7 +5,7 @@ const getApiUrl = () => {
         return 'http://localhost:3000'
     }
 
-    return 'http://localhost:3000' // replace it to your external API
+    return 'https://docketbase.vercel.app' // replace it to your external API
 }
 
 const removeEmptyData = (transcriptions) => {
