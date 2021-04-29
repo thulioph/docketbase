@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -7,17 +7,14 @@ import Jumbotron from 'react-bootstrap/Jumbotron'
 import Navbar from 'react-bootstrap/Navbar'
 import CardDeck from 'react-bootstrap/CardDeck'
 
-import  AppDataContext from 'src/context/app'
-
 import Loading from 'src/components/Loading'
 import FileMetadata from 'src/components/FileMetadata'
+import { getFiles } from 'src/services/data-manager'
 
 import styles from 'styles/general.module.css'
 
-export default function Home() {
-  const { loading, data } = useContext(AppDataContext)
-
-  if (loading) {
+export default function Home({ files }) {
+  if (!files || !files.length) {
     return (
       <Loading />
     )
@@ -39,7 +36,7 @@ export default function Home() {
 
           <Col md={8}>
             <CardDeck>
-              {data.map((item, idx) => (
+              {files.map((item, idx) => (
                 <FileMetadata key={idx} {...item} />
               ))}
             </CardDeck>
@@ -50,4 +47,14 @@ export default function Home() {
       </Container>
     </React.Fragment>
   )
+}
+
+export function getStaticProps(context) {
+  const files = getFiles()
+
+  return {
+    props: {
+      files
+    }
+  }
 }

@@ -1,8 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
 
-import { AppDataProvider } from 'src/context/app'
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.css'
 
@@ -17,9 +15,7 @@ function MyApp({ Component, pageProps }) {
         <link href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap" rel="stylesheet"></link>
       </Head>
 
-      <AppDataProvider>
-        <Component {...pageProps} />
-      </AppDataProvider>
+      <Component {...pageProps} />
     </React.Fragment>
   )
 }
