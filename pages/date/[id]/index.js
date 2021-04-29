@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import Container from 'react-bootstrap/Container'
@@ -9,20 +9,25 @@ import Navbar from 'react-bootstrap/Navbar'
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
 import Badge from 'react-bootstrap/Badge'
 
-import AppDataContext from 'src/context/app'
 import Loading from 'src/components/Loading'
+import { getFiles } from 'src/services/data-manager'
 
 import styles from 'styles/general.module.css'
 
-const TranscriptionPage = () => {
-    const { current, updateCurrent } = useContext(AppDataContext)
+const TranscriptionPage = ({ files }) => {
+    const [current, setCurrent] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
 
     const router = useRouter()
     const { id } = router.query
 
+    const updateCurrent = (selectedDate) => {
+      const item = files.find(({ metadata }) => metadata.date === selectedDate)
+      setCurrent(item)
+    }    
+
     useEffect(() => {
-        if (!current) {
+        if (id) {
             setIsLoading(true)
             updateCurrent(id)
             setIsLoading(false)
@@ -93,3 +98,23 @@ const TranscriptionPage = () => {
 }
 
 export default TranscriptionPage
+
+export async function getStaticPaths() {
+	const files = getFiles()
+
+	const paths = files.map(({ metadata }) => ({
+		params: { id: metadata.date },
+	}))
+
+	return { paths, fallback: false }
+}
+
+export async function getStaticProps(context) {
+  const files = getFiles()
+
+  return {
+    props: {
+      files
+    }
+  }
+}
