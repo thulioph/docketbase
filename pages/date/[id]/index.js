@@ -14,6 +14,16 @@ import { getFiles } from 'src/services/data-manager'
 
 import styles from 'styles/general.module.css'
 
+const renderString = (content) => {
+    const data = content.map(({ data }) => data)
+    const dataString = data.join(" ")
+
+    // const questionOrAnswer = /([\W$]+[\s*$]+[Q||A]+[\s*$])/g // option 01
+    const questionOrAnswer = /([\s*$]+[Q||A]+[\s*$])/g // option 02
+
+    return dataString.replace(questionOrAnswer, "</br></br><span>$1</span>").replace(/^,/, "")
+}
+
 const TranscriptionPage = ({ files }) => {
     const [current, setCurrent] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
@@ -65,31 +75,27 @@ const TranscriptionPage = ({ files }) => {
             <Container>
                 <Row>
                     <Col>
-                        {transcription.map(({ page_number, header, content }, idx) => (
-                            <React.Fragment key={idx}>
-                                <section className={styles.transcriptionContainer} id={page_number}>
-                                    <header className={styles.transcriptionHeader}>
-                                        <h4>{header}</h4>
+                        {transcription.map(({ page_number, header, content }, idx) => {
+                            return (
+                                <React.Fragment key={idx}>
+                                    <section className={styles.transcriptionContainer} id={page_number}>
+                                        <header className={styles.transcriptionHeader}>
+                                            <h4>{header}</h4>
 
-                                        <Badge variant="light">
-                                            <a href={`#${page_number}`} title={`Go to page ${page_number}`}>
-                                                Pg. {page_number}
-                                            </a>
-                                        </Badge>
-                                    </header>
+                                            <Badge variant="light">
+                                                <a href={`#${page_number}`} title={`Go to page ${page_number}`}>
+                                                    Pg. {page_number}
+                                                </a>
+                                            </Badge>
+                                        </header>
 
-                                    <div>
-                                        {content.map(({ line_number, data }) => {
-                                            return (
-                                                <div key={line_number}>
-                                                    <p>{data}</p>
-                                                </div>
-                                            )
-                                        })}
-                                    </div>
-                                </section>
-                            </React.Fragment>
-                        ))}
+                                        <div>
+                                            <p className={styles.transcriptionText} dangerouslySetInnerHTML={{ __html: renderString(content) }} />
+                                        </div>
+                                    </section>
+                                </React.Fragment>
+                            )
+                        })}
                     </Col>
                 </Row>
             </Container>
