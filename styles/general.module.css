@@ -23,3 +23,7 @@
 .transcriptionContainer {
     font-family: 'Cardo', serif;
 }
+
+.transcriptionText span {
+    font-weight: 700;
+}

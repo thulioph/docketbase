@@ -11,6 +11,7 @@ import Badge from 'react-bootstrap/Badge'
 
 import Loading from 'src/components/Loading'
 import { getFiles } from 'src/services/data-manager'
+import { renderString } from 'src/utils'
 
 import styles from 'styles/general.module.css'
 
@@ -65,31 +66,27 @@ const TranscriptionPage = ({ files }) => {
             <Container>
                 <Row>
                     <Col>
-                        {transcription.map(({ page_number, header, content }, idx) => (
-                            <React.Fragment key={idx}>
-                                <section className={styles.transcriptionContainer} id={page_number}>
-                                    <header className={styles.transcriptionHeader}>
-                                        <h4>{header}</h4>
+                        {transcription.map(({ page_number, header, content }, idx) => {
+                            return (
+                                <React.Fragment key={idx}>
+                                    <section className={styles.transcriptionContainer} id={page_number}>
+                                        <header className={styles.transcriptionHeader}>
+                                            <h4>{header}</h4>
 
-                                        <Badge variant="light">
-                                            <a href={`#${page_number}`} title={`Go to page ${page_number}`}>
-                                                Pg. {page_number}
-                                            </a>
-                                        </Badge>
-                                    </header>
+                                            <Badge variant="light">
+                                                <a href={`#${page_number}`} title={`Go to page ${page_number}`}>
+                                                    Pg. {page_number}
+                                                </a>
+                                            </Badge>
+                                        </header>
 
-                                    <div>
-                                        {content.map(({ line_number, data }) => {
-                                            return (
-                                                <div key={line_number}>
-                                                    <p>{data}</p>
-                                                </div>
-                                            )
-                                        })}
-                                    </div>
-                                </section>
-                            </React.Fragment>
-                        ))}
+                                        <div>
+                                            <p className={styles.transcriptionText} dangerouslySetInnerHTML={{ __html: renderString(content) }} />
+                                        </div>
+                                    </section>
+                                </React.Fragment>
+                            )
+                        })}
                     </Col>
                 </Row>
             </Container>

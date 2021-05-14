@@ -16,3 +16,45 @@ export const formatTranscription = (data) => {
 export const sortBy = (array, property) => {
     return array.sort((a, b) => b[property] - a[property])
 }
+
+const breakStringByRegex = (string, regex) => {
+    return string.replace(regex, "</br></br><span>$1</span>").replace(/^,/, "")
+}
+
+const breakStringByQuestionsAndAnswers = (string) => {
+    const questionOrAnswerRegex = /([\s*$]+[Q||A]+[\s*$])/g
+    return breakStringByRegex(string, questionOrAnswerRegex)
+}
+
+const breakStringByCourt = (string) => {
+    const courtRegex = /\b(THE COURT)\b/g
+    return breakStringByRegex(string, courtRegex)
+}
+
+const breakStringByMsPenza = (string) => {
+    const msPenzaRegex = /\b(MS. PENZA)\b/g
+    return breakStringByRegex(string, msPenzaRegex)
+}
+
+const breakStringByTheWitness = (string) => {
+    const theWitnessRegex = /\b(THE WITNESS)\b/g
+    return breakStringByRegex(string, theWitnessRegex)
+}
+
+const breakStringByMrAgnifilo = (string) => {
+    const mrAgnifiloRegex = /\b(MR. AGNIFILO)\b/g
+    return breakStringByRegex(string, mrAgnifiloRegex)
+}
+
+export const renderString = (content) => {
+    const data = content.map(({ data }) => data)
+    const dataString = data.join(" ")
+
+    const str1 = breakStringByQuestionsAndAnswers(dataString)
+    const str2 = breakStringByCourt(str1)
+    const str3 = breakStringByMsPenza(str2)
+    const str4 = breakStringByTheWitness(str3)
+    const str5 = breakStringByMrAgnifilo(str4)
+
+    return str5
+}
