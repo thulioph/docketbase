@@ -41,6 +41,11 @@ const breakStringByTheWitness = (string) => {
     return breakStringByRegex(string, theWitnessRegex)
 }
 
+const breakStringByMrAgnifilo = (string) => {
+    const mrAgnifiloRegex = /\b(MR. AGNIFILO)\b/g
+    return breakStringByRegex(string, mrAgnifiloRegex)
+}
+
 export const renderString = (content) => {
     const data = content.map(({ data }) => data)
     const dataString = data.join(" ")
@@ -49,6 +54,7 @@ export const renderString = (content) => {
     const str2 = breakStringByCourt(str1)
     const str3 = breakStringByMsPenza(str2)
     const str4 = breakStringByTheWitness(str3)
+    const str5 = breakStringByMrAgnifilo(str4)
 
-    return str4
+    return str5
 }
