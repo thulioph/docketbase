@@ -81,3 +81,15 @@ Follow the name convention below:
 ```json
 06-02-19-Jay-part-2-Valenziano-Guerci-USA-v-Raniere.json
 ```
+
+## How to break the line by regex
+
+If you want to break the line based on some patterns like `THE COURT:`, `MS. PENZA:` or `THE WITNESS:`, you need to:
+
+1. [build a regex](https://regex101.com/) for your pattern
+2. Create a method to group regex + received string
+3. Update `renderString` method with your new changes
+
+Below are two commits with this kind of change in case you want to get more details about it:
+- https://github.com/thulioph/docketbase/commit/540e501f86f47521efcaa0e4b8922c7834e61ccc
+- https://github.com/thulioph/docketbase/commit/2e1a153734b980459d3275701fb2ec321c6e04c1
