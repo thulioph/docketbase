@@ -36,6 +36,11 @@ const breakStringByMsPenza = (string) => {
     return breakStringByRegex(string, msPenzaRegex)
 }
 
+const breakStringByTheWitness = (string) => {
+    const theWitnessRegex = /\b(THE WITNESS)\b/g
+    return breakStringByRegex(string, theWitnessRegex)
+}
+
 export const renderString = (content) => {
     const data = content.map(({ data }) => data)
     const dataString = data.join(" ")
@@ -43,6 +48,7 @@ export const renderString = (content) => {
     const str1 = breakStringByQuestionsAndAnswers(dataString)
     const str2 = breakStringByCourt(str1)
     const str3 = breakStringByMsPenza(str2)
+    const str4 = breakStringByTheWitness(str3)
 
-    return str3
+    return str4
 }
