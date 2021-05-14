@@ -17,17 +17,32 @@ export const sortBy = (array, property) => {
     return array.sort((a, b) => b[property] - a[property])
 }
 
-export const breakStringByQuestionsAndAnswers = (string) => {
+const breakStringByRegex = (string, regex) => {
+    return string.replace(regex, "</br></br><span>$1</span>").replace(/^,/, "")
+}
+
+const breakStringByQuestionsAndAnswers = (string) => {
     const questionOrAnswerRegex = /([\s*$]+[Q||A]+[\s*$])/g
-    return string.replace(questionOrAnswerRegex, "</br></br><span>$1</span>").replace(/^,/, "")
+    return breakStringByRegex(string, questionOrAnswerRegex)
 }
 
-export const breakStringByCourt = (string) => {
+const breakStringByCourt = (string) => {
     const courtRegex = /\b(THE COURT)\b/g
-    return string.replace(courtRegex, "</br></br><span>$1</span>").replace(/^,/, "")
+    return breakStringByRegex(string, courtRegex)
 }
 
-export const breakStringByMsPenza = (string) => {
+const breakStringByMsPenza = (string) => {
     const msPenzaRegex = /\b(MS. PENZA)\b/g
-    return string.replace(msPenzaRegex, "</br></br><span>$1</span>").replace(/^,/, "")
+    return breakStringByRegex(string, msPenzaRegex)
+}
+
+export const renderString = (content) => {
+    const data = content.map(({ data }) => data)
+    const dataString = data.join(" ")
+
+    const str1 = breakStringByQuestionsAndAnswers(dataString)
+    const str2 = breakStringByCourt(str1)
+    const str3 = breakStringByMsPenza(str2)
+
+    return str3
 }

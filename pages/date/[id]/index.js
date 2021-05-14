@@ -11,20 +11,9 @@ import Badge from 'react-bootstrap/Badge'
 
 import Loading from 'src/components/Loading'
 import { getFiles } from 'src/services/data-manager'
-import { breakStringByQuestionsAndAnswers, breakStringByCourt, breakStringByMsPenza } from 'src/utils'
+import { renderString } from 'src/utils'
 
 import styles from 'styles/general.module.css'
-
-const renderString = (content) => {
-    const data = content.map(({ data }) => data)
-    const dataString = data.join(" ")
-
-    const str1 = breakStringByQuestionsAndAnswers(dataString)
-    const str2 = breakStringByCourt(str1)
-    const str3 = breakStringByMsPenza(str2)
-
-    return str3
-}
 
 const TranscriptionPage = ({ files }) => {
     const [current, setCurrent] = useState(null)
